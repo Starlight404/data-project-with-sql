@@ -1,0 +1,16 @@
+SELECT count(*) FROM sales.transactions where market_code= "Mark001";## for counting how many products are from chennai
+SELECT * FROM sales.transactions where market_code= "Mark001"; list of products from cheenai
+SELECT sales.transactions.*, sales.date.* FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date = sales.date.date ## for joining two coloun , here 
+we have combined products and date
+
+SELECT sales.transactions.*, sales.date.* FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date = sales.date.date where sales.date.year = 2020;
+## for finding 2020 year product
+
+SELECT sum(sales.transactions.sales_amount) FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date = sales.date.date where sales.date.year = 2020;
+ 
+## for the sum of all sales that happened in 2020
+
+SELECT sum(sales.transactions.sales_amount) FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date = sales.date.date 
+where sales.date.year = 2020 and sales.transactions.market_code = "Mark001" ## this code represents total income on chennai by the year 2020
+
+SELECT distinct product_code FROM sales.transactions where market_code = "Mark001" ## to find distinct products in chennai

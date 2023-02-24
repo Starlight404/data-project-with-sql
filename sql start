@@ -1,3 +1,46 @@
+Show all customer records
+
+SELECT * FROM customers;
+
+Show total number of customers
+
+SELECT count(*) FROM customers;
+
+Show transactions for Chennai market (market code for chennai is Mark001
+
+SELECT * FROM transactions where market_code='Mark001';
+
+Show distrinct product codes that were sold in chennai
+
+SELECT distinct product_code FROM transactions where market_code='Mark001';
+
+Show transactions where currency is US dollars
+
+SELECT * from transactions where currency="USD"
+
+Show transactions in 2020 join by date table
+
+SELECT transactions.*, date.* FROM transactions INNER JOIN date ON transactions.order_date=date.date where date.year=2020;
+
+Show total revenue in year 2020,
+
+SELECT SUM(transactions.sales_amount) FROM transactions INNER JOIN date ON transactions.order_date=date.date where date.year=2020 and transactions.currency="INR\r" or transactions.currency="USD\r";
+
+Show total revenue in year 2020, January Month,
+
+SELECT SUM(transactions.sales_amount) FROM transactions INNER JOIN date ON transactions.order_date=date.date where date.year=2020 and and date.month_name="January" and (transactions.currency="INR\r" or transactions.currency="USD\r");
+
+Show total revenue in year 2020 in Chennai
+
+SELECT SUM(transactions.sales_amount) FROM transactions INNER JOIN date ON transactions.order_date=date.date where date.year=2020 and transactions.market_code="Mark001";
+
+Data Analysis Using Power BI
+Formula to create norm_amount column
+= Table.AddColumn(#"Filtered Rows", "norm_amount", each if [currency] = "USD" or [currency] ="USD#(cr)" then [sales_amount]*75 else [sales_amount], type any)
+
+#################################### FOR THE PROJECT THE BELOW STEPS THAT I TRIED ###############################
+
+
 SELECT count(*) FROM sales.transactions where market_code= "Mark001";## for counting how many products are from chennai
 SELECT * FROM sales.transactions where market_code= "Mark001"; list of products from cheenai
 SELECT sales.transactions.*, sales.date.* FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date = sales.date.date ## for joining two coloun , here 
@@ -14,3 +57,28 @@ SELECT sum(sales.transactions.sales_amount) FROM sales.transactions INNER JOIN s
 where sales.date.year = 2020 and sales.transactions.market_code = "Mark001" ## this code represents total income on chennai by the year 2020
 
 SELECT distinct product_code FROM sales.transactions where market_code = "Mark001" ## to find distinct products in chennai
+
+
+SELECT * FROM sales.transactions where sales_amount = -1; ## to find negative values
+
+Loaded the data from MYSQL in POWERBI
+
+
+
+created a star model on POWERBI
+
+Started operation on transform the data in Powerquery
+
+filtered all the 0 and 1 values of sales_amount
+
+created a conditional coloumn so that we can get normalized_sales_amount
+
+converted the currency into INR
+
+Coverted adddtional usd to remove the extra cr
+
+we have to set default schema to find the duplicate errors
+
+## Select count(*) from transactions where transactions.currency = 'INR\r';
+
+
